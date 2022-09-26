@@ -79,3 +79,19 @@ exports.bulkCreateCER = async (db, payloads) => {
     };
   }
 };
+
+exports.aggregateCER = async (db, payloads) => {
+  try {
+    const response = await CarbonEmissionsRoute(db).aggregate(payloads);
+    return response;
+  } catch (error) {
+    console.log(error);
+    throw {
+      error: {
+        statusCode: 400,
+        name: 'DataError',
+        message: 'Aggregate CarbonEmissionsRoute collection fail',
+      }
+    };
+  }
+};
