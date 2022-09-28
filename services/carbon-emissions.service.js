@@ -79,3 +79,19 @@ exports.bulkCreateCE = async (db, payloads) => {
     };
   }
 };
+
+exports.aggregateCE = async (db, payloads) => {
+  try {
+    const response = await CarbonEmissions(db).aggregate(payloads);
+    return response;
+  } catch (error) {
+    console.log(error);
+    throw {
+      error: {
+        statusCode: 400,
+        name: 'DataError',
+        message: 'Aggregate CarbonEmissions collection fail',
+      }
+    };
+  }
+};
